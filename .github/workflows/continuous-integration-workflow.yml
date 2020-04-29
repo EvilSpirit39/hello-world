@@ -1,15 +1,17 @@
-name: Greet Everyone
+name: Node.js CI 
 on: [push]
 
 jobs:
-  build:
-    name: Greeting
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Hello world
-        uses: actions/hello-world-javascript-action@v1
+      - uses: actions/checkout@v2
+      - name: Use Node.js 
+      - uses: actions/setup-node@v1
         with:
-          who-to-greet: 'Mona the Octocat'
-        id: hello
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+          node-version: "12.x"
+      - run: npm install
+      - run: npm test
+        env: 
+          CI: true
